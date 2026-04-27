@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Upload Student CSV</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    background:#000;
+    color:white;
+    text-align:center;
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    padding:15px 50px;
+    background:#111;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:20px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+}
+
+.container{
+    margin-top:120px;
+}
+
+input{
+    margin-top:20px;
+}
+
+button{
+    margin-top:20px;
+    padding:12px 25px;
+    background:#00aaff;
+    border:none;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    background:#008ecc;
+}
+
+#msg{
+    margin-top:20px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<!-- Login check -->
+
+<script>
+
+let user = localStorage.getItem("teacher");
+
+if(!user){
+    alert("Please login first");
+    window.location.href="login.html";
+}
+
+</script>
+
+
+<!-- Navbar -->
+
+<nav>
+
+<div><b>AI Powered Calling System</b></div>
+
+<ul>
+
+<li><a href="dashboard.html">Dashboard</a></li>
+<li><a href="upload.html">Upload</a></li>
+<li><a href="login.html">Logout</a></li>
+
+</ul>
+
+</nav>
+
+
+<!-- Upload Section -->
+
+<div class="container">
+
+<h2>Upload Student Roll Numbers (CSV)</h2>
+
+<p>Select CSV file containing roll numbers</p>
+
+<input type="file" id="fileInput" accept=".csv">
+
+<br>
+
+<button onclick="uploadFile()">Upload CSV</button>
+
+<p id="msg"></p>
+
+</div>
+
+
+
+<script>
+
+function uploadFile(){
+
+    let file = document.getElementById("fileInput").files[0];
+
+    if(!file){
+
+        document.getElementById("msg").innerText="Please select a CSV file";
+
+        return;
+    }
+
+    document.getElementById("msg").innerText="Uploading file...";
+
+    let formData = new FormData();
+
+    formData.append("file",file);
+
+    fetch("http://127.0.0.1:5000/upload",{
+
+        method:"POST",
+        body:formData
+
+    })
+
+    .then(response => response.json())
+
+    .then(data => {
+
+        console.log(data);
+
+        document.getElementById("msg").innerText="Calls initiated successfully!";
+
+        setTimeout(function(){
+
+            window.location.href="dashboard.html";
+
+        },2000);
+
+    })
+
+    .catch(error => {
+
+        console.log(error);
+
+        document.getElementById("msg").innerText="Error connecting to backend";
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>
