@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Features</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: black;
+            color: white;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 50px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        nav ul li a:hover {
+            color: #00aaff;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .features-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .feature-box {
+            background: #111;
+            padding: 20px;
+            width: 250px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .feature-box:hover {
+            background: #00aaff;
+            color: black;
+        }
+
+        /* Quotes */
+        .quotes {
+            padding: 50px;
+            text-align: center;
+            background: #111;
+        }
+
+        .quote-box {
+            margin: 15px auto;
+            padding: 15px;
+            width: 60%;
+            background: black;
+            border-left: 5px solid #00aaff;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div>AI Powered</div>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="#">About us</a></li>
+    </ul>
+</nav>
+
+<!-- Features -->
+<section class="features-section">
+    <h2>Our Features</h2>
+
+    <div class="features-container">
+        <div class="feature-box">
+            <h3>📞 Automated Calling</h3>
+            <p>Automatically call users with AI voice notifications.</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>🎤 Voice Response</h3>
+            <p>Users can reply using voice and system records it.</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>🤖 AI Processing</h3>
+            <p>AI understands and processes user responses.</p>
+        </div>
+
+        <div class="feature-box">
+            <h3>📊 Analytics</h3>
+            <p>View reports and performance in dashboard.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Quotes -->
+<section class="quotes">
+    <h2>Our Vision</h2>
+
+    <div class="quote-box">
+        <p>"AI is transforming the way we communicate."</p>
+    </div>
+
+    <div class="quote-box">
+        <p>"Automation saves time and increases efficiency."</p>
+    </div>
+
+    <div class="quote-box">
+        <p>"Smart systems lead to smart decisions."</p>
+    </div>
+</section>
+
+</body>
+</html>
