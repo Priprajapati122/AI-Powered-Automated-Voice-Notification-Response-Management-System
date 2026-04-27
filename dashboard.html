@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+background:black;
+color:white;
+font-family:Arial;
+text-align:center;
+}
+
+/* Stats */
+.stats{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:20px;
+}
+
+.box{
+background:#222;
+padding:20px;
+border-radius:10px;
+width:150px;
+}
+
+/* Controls */
+.controls{
+margin-top:20px;
+}
+
+input{
+padding:8px;
+margin:5px;
+}
+
+/* Graph */
+.chart-container{
+width:400px;
+height:300px;
+margin:auto;
+margin-top:20px;
+}
+
+table{
+width:90%;
+margin:auto;
+border-collapse:collapse;
+margin-top:40px;
+}
+
+th,td{
+border:1px solid white;
+padding:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Attendance Dashboard</h2>
+
+<!-- Stats -->
+<div class="stats">
+
+<div class="box">
+<h3>Total Calls</h3>
+<p id="totalCalls">0</p>
+</div>
+
+<div class="box">
+<h3>Responses</h3>
+<p id="responses">0</p>
+</div>
+
+<div class="box">
+<h3>No Response</h3>
+<p id="noResponse">0</p>
+</div>
+
+</div>
+
+
+<!-- Search + Filter -->
+<div class="controls">
+
+<input type="text" id="searchRoll" placeholder="Search Roll No">
+
+<input type="date" id="dateFilter">
+
+<button onclick="applyFilter()">Filter</button>
+
+<button onclick="loadData()">Reset</button>
+
+</div>
+
+
+<div class="chart-container">
+<canvas id="chart"></canvas>
+</div>
+
+
+<table>
+
+<tr>
+
+<th>Roll</th>
+<th>Name</th>
+<th>Phone</th>
+<th>Status</th>
+<th>Reason</th>
+<th>Date</th>
+
+</tr>
+
+<tbody id="tableData"></tbody>
+
+</table>
+
+
+
+<script>
+
+let fullData=[]
+let chart
+
+function loadData(){
+
+fetch("http://127.0.0.1:5000/responses")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+fullData=data
+
+renderStats(data)
+renderTable(data)
+renderChart(data)
+
+})
+
+}
+
+
+function renderStats(data){
+
+let total=data.length
+let responses=0
+
+data.forEach(r=>{
+if(r.reason){
+responses++
+}
+})
+
+document.getElementById("totalCalls").innerText=total
+document.getElementById("responses").innerText=responses
+document.getElementById("noResponse").innerText=total-responses
+
+}
+
+
+function renderTable(data){
+
+let rows=""
+
+data.forEach(r=>{
+
+rows+=`
+<tr>
+
+<td>${r.roll_no}</td>
+<td>${r.name}</td>
+<td>${r.phone}</td>
+<td>${r.status}</td>
+<td>${r.reason||""}</td>
+<td>${r.date_time.split("GMT")[0]}</td>
+
+</tr>
+`
+
+})
+
+document.getElementById("tableData").innerHTML=rows
+
+}
+
+
+
+function renderChart(data){
+
+let reasonCount=0
+let noReason=0
+
+data.forEach(r=>{
+
+if(r.reason){
+reasonCount++
+}else{
+noReason++
+}
+
+})
+
+const ctx=document.getElementById("chart")
+
+if(chart){
+chart.destroy()
+}
+
+chart=new Chart(ctx,{
+
+type:"pie",
+
+data:{
+labels:["Reason Received","No Response"],
+datasets:[{
+data:[reasonCount,noReason],
+backgroundColor:["green","red"]
+}]
+},
+
+options:{
+responsive:true,
+maintainAspectRatio:false
+}
+
+})
+
+}
+
+
+
+function applyFilter(){
+
+let roll=document.getElementById("searchRoll").value
+let date=document.getElementById("dateFilter").value
+
+let filtered=fullData.filter(r=>{
+
+let rollMatch=!roll || r.roll_no.toString().includes(roll)
+
+let dateMatch=!date || (r.date_time && r.date_time.startsWith(date))
+
+return rollMatch && dateMatch
+
+})
+
+renderStats(filtered)
+renderTable(filtered)
+renderChart(filtered)
+
+}
+
+
+loadData()
+
+</script>
+
+</body>
+</html>
