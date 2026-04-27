@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: black;
+            color: white;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 50px;
+            background: black;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        nav ul li a:hover {
+            color: #00aaff;
+        }
+
+        /* Login Form */
+        .container {
+            width: 300px;
+            margin: 100px auto;
+            background: #111;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #00aaff;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0088cc;
+        }
+
+        #msg {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div>AI Powered</div>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="about.html">About us</a></li>
+    </ul>
+</nav>
+
+<!-- Login Form -->
+<div class="container">
+    <h2>Teacher Login</h2>
+
+    <input type="email" id="email" placeholder="Enter Email">
+    <input type="password" id="password" placeholder="Enter Password">
+
+    <button onclick="login()">Login</button>
+
+    <p id="msg"></p>
+</div>
+
+<script>
+function login() {
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    let savedUser = JSON.parse(localStorage.getItem("teacher"));
+
+    if (!savedUser) {
+        document.getElementById("msg").innerText = "No user found! Please register first.";
+        return;
+    }
+
+    if (email === savedUser.email && password === savedUser.password) {
+        document.getElementById("msg").innerText = "Login Successful!";
+
+        setTimeout(() => {
+            window.location.href = "upload.html";
+        }, 1000);
+    } else {
+        document.getElementById("msg").innerText = "Invalid Email or Password!";
+    }
+}
+</script>
+
+</body>
+</html>
