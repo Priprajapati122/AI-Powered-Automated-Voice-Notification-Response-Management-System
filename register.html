@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Register</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: black;
+            color: white;
+        }
+
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 50px;
+            background: black;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+        }
+
+        nav ul li a:hover {
+            color: #00aaff;
+        }
+
+        /* Register Form */
+        .container {
+            width: 300px;
+            margin: 80px auto;
+            background: #111;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #00aaff;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0088cc;
+        }
+
+        #msg {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div>AI Powered</div>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="register.html">Register</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="about.html">About us</a></li>
+    </ul>
+</nav>
+
+<!-- Register Form -->
+<div class="container">
+    <h2>Teacher Registration</h2>
+
+    <input type="text" id="name" placeholder="Full Name">
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type="text" id="school" placeholder="School/Organization">
+
+    <button onclick="register()">Register</button>
+
+    <p id="msg"></p>
+</div>
+
+<script>
+function register() {
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    let school = document.getElementById("school").value;
+
+    if (name === "" || email === "" || password === "" || school === "") {
+        document.getElementById("msg").innerText = "Please fill all fields!";
+        return;
+    }
+
+    let user = {
+        name: name,
+        email: email,
+        password: password,
+        school: school
+    };
+
+    localStorage.setItem("teacher", JSON.stringify(user));
+
+    document.getElementById("msg").innerText = "Registration Successful!";
+
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 1500);
+}
+</script>
+
+</body>
+</html>
