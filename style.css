@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #000;
+    color: white;
+}
+
+/* Navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 50px;
+    background: black;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+    align-items: center;
+}
+
+nav ul li {
+    cursor: pointer;
+}
+
+.demo-btn {
+    background: #00aaff;
+    border: none;
+    padding: 8px 15px;
+    color: white;
+    border-radius: 5px;
+}
+
+/* Hero Section */
+.hero {
+    display: flex;
+    padding: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.left {
+    width: 50%;
+}
+
+.left h1 {
+    font-size: 40px;
+    line-height: 1.4;
+}
+
+.highlight {
+    color: orange;
+}
+
+span {
+    color: white;
+}
+
+.features {
+    margin-top: 20px;
+}
+
+.features li {
+    margin: 10px 0;
+}
+
+/* Boxes */
+.icons {
+    display: flex;
+    margin-top: 30px;
+    gap: 20px;
+}
+
+.box {
+    background: white;
+    color: black;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+/* Right Image */
+.right img {
+    width: 600px;
+    height: 500px;
+    border-radius: 10px;
+}
+nav ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+nav ul li a:hover {
+    color: #00aaff;
+}
